@@ -47,7 +47,22 @@ class _MainWebviewState extends State<MainWebview> {
         print('MANUFACTURER: ${androidInfo.manufacturer}');
         print('PRODUCT: ${androidInfo.product}');
 
-        return androidInfo;
+        return {
+          androidInfo.model,
+          androidInfo.isPhysicalDevice,
+          androidInfo.androidId,
+          androidInfo.board,
+          androidInfo.bootloader,
+          androidInfo.brand,
+          androidInfo.device,
+          androidInfo.display,
+          androidInfo.fingerprint,
+          androidInfo.hardware,
+          androidInfo.host,
+          androidInfo.id,
+          androidInfo.manufacturer,
+          androidInfo.product,
+        };
       } else {
         IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
         print('IDENTIFIER FOR VENDOR: ${iosInfo.identifierForVendor}');
