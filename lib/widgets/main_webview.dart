@@ -73,7 +73,13 @@ class _MainWebviewState extends State<MainWebview> {
               onProgress: (int progress) {
                 print("WebView is loading (progress : $progress%)");
               },
-              javascriptChannels: <JavascriptChannel>{},
+              javascriptChannels: Set.from([
+                JavascriptChannel(
+                    name: 'messageHandler',
+                    onMessageReceived: (JavascriptMessage result) {
+                      print(result.message);
+                    })
+              ]),
               navigationDelegate: (NavigationRequest request) {
                 if (request.url.startsWith('https://www.youtube.com/')) {
                   print('blocking navigation to $request}');
