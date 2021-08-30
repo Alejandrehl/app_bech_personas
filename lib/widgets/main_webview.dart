@@ -9,7 +9,8 @@ class MainWebview extends StatelessWidget {
     return Builder(
       builder: (BuildContext context) {
         return WebView(
-          initialUrl: 'https://flutter.dev',
+          initialUrl:
+              'https://www.bancoestado.cl/imagenes/_personas/home/default.asp',
           javascriptMode: JavascriptMode.unrestricted,
           onWebViewCreated: (WebViewController webViewController) {},
           onProgress: (int progress) {
