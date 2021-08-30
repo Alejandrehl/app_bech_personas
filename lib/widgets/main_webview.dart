@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:device_info/device_info.dart';
@@ -12,6 +13,15 @@ class MainWebview extends StatefulWidget {
 }
 
 class _MainWebviewState extends State<MainWebview> {
+  final Completer<WebViewController> _controller =
+      Completer<WebViewController>();
+
+  @override
+  void initState() {
+    super.initState();
+    if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
+  }
+
   @override
   Widget build(BuildContext context) {
     String url =
@@ -55,7 +65,9 @@ class _MainWebviewState extends State<MainWebview> {
         return WebView(
           initialUrl: url,
           javascriptMode: JavascriptMode.unrestricted,
-          onWebViewCreated: (WebViewController webViewController) {},
+          onWebViewCreated: (WebViewController webViewController) {
+            _controller.complete(webViewController);
+          },
           onProgress: (int progress) {
             print("WebView is loading (progress : $progress%)");
           },
