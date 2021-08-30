@@ -1,3 +1,4 @@
+import 'package:app_bech_personas/widgets/main_webview.dart';
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatelessWidget {
@@ -6,8 +7,8 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text("MainScreen"),
+      body: SafeArea(
+        child: MainWebview(),
       ),
     );
   }
