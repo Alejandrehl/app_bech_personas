@@ -1,3 +1,4 @@
+import 'package:device_info/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -8,6 +9,23 @@ class MainWebview extends StatelessWidget {
   Widget build(BuildContext context) {
     String url =
         'https://desa-plataformadigital.bancoestado.cl/apps/enrolamiento/welcome';
+
+    void getDeviceInfo() async {
+      DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+      //AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      //print('Running on ${androidInfo.model}'); // e.g. "Moto G (4)"
+
+      IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+      print('====== DEVICE INFO ======');
+      print('IDENTIFIER FOR VENDOR: ${iosInfo.identifierForVendor}');
+      print('IS PHYSICAL DEVICE: ${iosInfo.isPhysicalDevice}');
+      print('LOCALIZED MODEL: ${iosInfo.localizedModel}');
+      print('MODEL: ${iosInfo.model}');
+      print('NAME: ${iosInfo.name}');
+      print('SYSTEM NAME: ${iosInfo.systemName}');
+      print('SYSTEM VERSION: ${iosInfo.systemVersion}');
+      print('MACHINE: ${iosInfo.utsname.machine}');
+    }
 
     return Builder(
       builder: (BuildContext context) {
@@ -33,6 +51,7 @@ class MainWebview extends StatelessWidget {
           },
           onPageFinished: (String url) {
             print('Page finished loading: $url');
+            getDeviceInfo();
           },
           gestureNavigationEnabled: true,
         );
