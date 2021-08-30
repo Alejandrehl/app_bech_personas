@@ -10,7 +10,7 @@ class MainWebview extends StatelessWidget {
       builder: (BuildContext context) {
         return WebView(
           initialUrl:
-              'https://www.bancoestado.cl/imagenes/_personas/home/default.asp',
+              'https://desa-plataformadigital.bancoestado.cl/apps/enrolamiento/welcome',
           javascriptMode: JavascriptMode.unrestricted,
           onWebViewCreated: (WebViewController webViewController) {},
           onProgress: (int progress) {
