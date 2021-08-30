@@ -4,9 +4,14 @@ import 'package:device_info/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class MainWebview extends StatelessWidget {
+class MainWebview extends StatefulWidget {
   const MainWebview({Key? key}) : super(key: key);
 
+  @override
+  _MainWebviewState createState() => _MainWebviewState();
+}
+
+class _MainWebviewState extends State<MainWebview> {
   @override
   Widget build(BuildContext context) {
     String url =
