@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:io';
 
 import 'package:device_info/device_info.dart';
@@ -13,9 +12,7 @@ class MainWebview extends StatefulWidget {
 }
 
 class _MainWebviewState extends State<MainWebview> {
-  final Completer<WebViewController> _controller =
-      Completer<WebViewController>();
-
+  var _controller;
   bool isLoading = true;
 
   @override
@@ -26,8 +23,9 @@ class _MainWebviewState extends State<MainWebview> {
 
   @override
   Widget build(BuildContext context) {
-    String url =
-        'https://desa-plataformadigital.bancoestado.cl/apps/enrolamiento/welcome';
+    String url = 'https://distracted-davinci-a8cf4d.netlify.app/';
+    //String url =
+    'https://desa-plataformadigital.bancoestado.cl/apps/enrolamiento/welcome';
 
     void getDeviceInfo() async {
       print('========== DEVICE INFO ==========');
@@ -70,7 +68,7 @@ class _MainWebviewState extends State<MainWebview> {
               initialUrl: url,
               javascriptMode: JavascriptMode.unrestricted,
               onWebViewCreated: (WebViewController webViewController) {
-                _controller.complete(webViewController);
+                _controller = webViewController;
               },
               onProgress: (int progress) {
                 print("WebView is loading (progress : $progress%)");
@@ -97,7 +95,14 @@ class _MainWebviewState extends State<MainWebview> {
               },
               gestureNavigationEnabled: true,
             ),
-            isLoading ? Center(child: CircularProgressIndicator()) : Stack()
+            isLoading ? Center(child: CircularProgressIndicator()) : Stack(),
+            FloatingActionButton(
+              child: const Icon(Icons.arrow_upward),
+              onPressed: () {
+                _controller
+                    .evaluateJavascript('fromFlutter("From Flutter x2")');
+              },
+            ),
           ],
         );
       },
