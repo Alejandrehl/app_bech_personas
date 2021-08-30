@@ -27,8 +27,7 @@ class _MainWebviewState extends State<MainWebview> {
     //String url =
     'https://desa-plataformadigital.bancoestado.cl/apps/enrolamiento/welcome';
 
-    void getDeviceInfo() async {
-      print('========== DEVICE INFO ==========');
+    Future getDeviceInfo() async {
       DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
 
       if (Platform.isAndroid) {
@@ -47,6 +46,8 @@ class _MainWebviewState extends State<MainWebview> {
         print('ID: ${androidInfo.id}');
         print('MANUFACTURER: ${androidInfo.manufacturer}');
         print('PRODUCT: ${androidInfo.product}');
+
+        return androidInfo;
       } else {
         IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
         print('IDENTIFIER FOR VENDOR: ${iosInfo.identifierForVendor}');
@@ -57,6 +58,17 @@ class _MainWebviewState extends State<MainWebview> {
         print('SYSTEM NAME: ${iosInfo.systemName}');
         print('SYSTEM VERSION: ${iosInfo.systemVersion}');
         print('MACHINE: ${iosInfo.utsname.machine}');
+
+        return {
+          iosInfo.identifierForVendor,
+          iosInfo.isPhysicalDevice,
+          iosInfo.localizedModel,
+          iosInfo.name,
+          iosInfo.model,
+          iosInfo.systemName,
+          iosInfo.systemVersion,
+          iosInfo.utsname.machine,
+        };
       }
     }
 
@@ -75,9 +87,15 @@ class _MainWebviewState extends State<MainWebview> {
               },
               javascriptChannels: Set.from([
                 JavascriptChannel(
-                    name: 'messageHandler',
-                    onMessageReceived: (JavascriptMessage result) {
-                      print(result.message);
+                    name: 'appCaseBridge',
+                    onMessageReceived: (JavascriptMessage result) async {
+                      var command = result.message;
+
+                      if (command == "GET_DEVICE_INFO") {
+                        var data = await getDeviceInfo();
+                        _controller
+                            .evaluateJavascript('getDeviceInfo("$data")');
+                      }
                     })
               ]),
               navigationDelegate: (NavigationRequest request) {
@@ -91,7 +109,6 @@ class _MainWebviewState extends State<MainWebview> {
               },
               onPageStarted: (String url) {
                 print('Page started loading: $url');
-                getDeviceInfo();
               },
               onPageFinished: (String url) {
                 print('Page finished loading: $url');
