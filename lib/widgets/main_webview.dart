@@ -6,11 +6,13 @@ class MainWebview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String url =
+        'https://desa-plataformadigital.bancoestado.cl/apps/enrolamiento/welcome';
+
     return Builder(
       builder: (BuildContext context) {
         return WebView(
-          initialUrl:
-              'https://desa-plataformadigital.bancoestado.cl/apps/enrolamiento/welcome',
+          initialUrl: url,
           javascriptMode: JavascriptMode.unrestricted,
           onWebViewCreated: (WebViewController webViewController) {},
           onProgress: (int progress) {
@@ -22,6 +24,7 @@ class MainWebview extends StatelessWidget {
               print('blocking navigation to $request}');
               return NavigationDecision.prevent;
             }
+
             print('allowing navigation to $request');
             return NavigationDecision.navigate;
           },
