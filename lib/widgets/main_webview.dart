@@ -138,7 +138,7 @@ class _MainWebviewState extends State<MainWebview> {
               child: const Icon(Icons.arrow_upward),
               onPressed: () {
                 _controller
-                    .evaluateJavascript('fromFlutter("From Flutter x2")');
+                    .evaluateJavascript('fromFlutter("Hello from Flutter")');
               },
             ),
           ],
