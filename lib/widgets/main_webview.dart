@@ -23,9 +23,9 @@ class _MainWebviewState extends State<MainWebview> {
 
   @override
   Widget build(BuildContext context) {
-    String url = 'https://distracted-davinci-a8cf4d.netlify.app/';
-    //String url =
-    'https://desa-plataformadigital.bancoestado.cl/apps/enrolamiento/welcome';
+    //String url = 'https://distracted-davinci-a8cf4d.netlify.app/';
+    String url =
+        'https://desa-plataformadigital.bancoestado.cl/apps/enrolamiento/welcome';
 
     Future getDeviceInfo() async {
       DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
